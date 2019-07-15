@@ -1,0 +1,6 @@
+*.pyc
+*.retry
+*.DS_Store
+*.vscode
+*__pycache__
+*migrations

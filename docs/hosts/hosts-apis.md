@@ -1,11 +1,14 @@
 ## 目录
-
-
+- [hosts概要](#hosts概要)
+- [hostsAPI说明](#hostsAPI说明)
+- [hosts/idcs/add](#hosts/idcs/add)
 ---
 
 
 ## hosts概要
    **hosts目标是完成对主机相关功能的自动化**
+
+   ---
    
 
 ## hostsAPI说明
@@ -17,3 +20,9 @@
 |查询所有的IDC机房信息| /hosts/idcs | get|
 
 ---
+
+
+## hosts/idcs/add
+   **实现添加 IDC 机房的功能**
+   ```python
+   ```

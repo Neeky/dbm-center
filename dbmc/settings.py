@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+#APPEND_SLASH=False
 
 # Application definition
 
@@ -44,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -121,7 +122,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -133,21 +134,49 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+PROJECT_NAME = ROOT_URLCONF.split('.')[0]
+
+LEVEL_NAME = 'INFO' if DEBUG == False else 'DEBUG'
+                            
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{asctime} {levelname} {name} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
-        'file': {
+        'django-handler': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/tmp/dbm-center.log',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'simple',
+            'filename': '/tmp/django.log',
+            'maxBytes': 1024 * 1024 * 20,
+            'backupCount': 3
+        },
+        f'{PROJECT_NAME}-handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'simple',
+            'filename': f'/tmp/{PROJECT_NAME}.log',
+            'maxBytes': 1024 * 1024 * 20,
+            'backupCount': 3
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
             'level': 'INFO',
+            'handlers': ['django-handler'],
             'propagate': True,
         },
-    },
+        PROJECT_NAME :{
+            'level': LEVEL_NAME,
+            'handlers': [f'{PROJECT_NAME}-handler'],
+            'propagate': True,
+        }
+    }
 }
+                
+        

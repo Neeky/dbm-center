@@ -6,7 +6,9 @@ if __name__ == "__main__":
     #print(response.cookies)
     #print(response.content)
     response = requests.post('http://127.0.0.1:8080/hosts/idcs/add',data={
-        'name': 'name2',
-        'city': 'city2'
+        'name': 'name3',
+        'city': 'city3'
     })
-    print(response.content)
+    print(response.json())
+
+    

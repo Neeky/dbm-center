@@ -1,1 +1,0 @@
-python3 manage.py test apps.hosts -v 2

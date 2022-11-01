@@ -4,3 +4,5 @@
 *.vscode
 *__pycache__
 *migrations
+dist/*
+dbm_center.egg-info/*

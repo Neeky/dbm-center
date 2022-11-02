@@ -6,3 +6,4 @@
 *migrations
 dist/*
 dbm_center.egg-info/*
+db.*

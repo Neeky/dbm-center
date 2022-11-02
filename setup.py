@@ -12,6 +12,7 @@ setup(name='dbm-center',
       maintainer_email='neeky@live.com',
       scripts=['bin/dbm-center'],
       packages=['dbmcenter'],
+      package_data={'dbmcenter': ['dbm-center/*', 'dbm-center/css/*', 'dbm-center/js/*']},
       url='https://github.com/Neeky/dbm-center',
       python_requires='>=3.6.*',
       classifiers=[

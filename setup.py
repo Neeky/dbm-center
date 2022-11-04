@@ -4,7 +4,7 @@ from setuptools import setup
 
 
 setup(name='dbm-center',
-      version='0.2.0',
+      version='0.2.1',
       description='dbm-center 数据库管理中心服务端程序',
       author="Neeky",
       author_email="neeky@live.com",
@@ -13,6 +13,7 @@ setup(name='dbm-center',
       scripts=['bin/dbm-center'],
       packages=['dbmcenter'],
       package_data={'dbmcenter': ['dbm-center/*', 'dbm-center/css/*', 'dbm-center/js/*']},
+      install_requires=['Django==4.1.2'],
       url='https://github.com/Neeky/dbm-center',
       python_requires='>=3.6.*',
       classifiers=[

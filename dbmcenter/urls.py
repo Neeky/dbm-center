@@ -13,12 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import include, path
 from django.http import HttpResponseRedirect
 
 def index(request, *args, **kwargs):
+    """
+    重定向到 VUE 前端
+    """
     return HttpResponseRedirect('dbm-center/index.html')
 
 urlpatterns = [
-    path('', index, name='index')
+    path('', index, name='index'),
+    path('apis/agents/', include('agents.urls'))
 ]

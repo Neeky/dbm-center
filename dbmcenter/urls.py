@@ -24,5 +24,5 @@ def index(request, *args, **kwargs):
 
 urlpatterns = [
     path('', index, name='index'),
-    path('apis/agents/', include('agents.urls'))
+    path('apis/agents/', include('agents.urls'), name='apis-agents')
 ]

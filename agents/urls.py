@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import re_path
 
 from . import views
 
 urlpatterns = [
-    path('', views.AgentsView.as_view(), name='agent-views'),
+    re_path(r'^(?P<agent_pk>[0-9]{0,8})$', views.AgentsView.as_view(), name='agent-views'),
 ]

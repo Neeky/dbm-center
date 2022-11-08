@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.db.utils import IntegrityError
 from django.views.generic.base import View
+from django.forms.models import model_to_dict
 
 from agents.models import Agent
 from dbmcenter.consts import APPLICATION_JSON
@@ -19,15 +20,17 @@ class AgentsView(View):
     所有 agent 对象 crud 的接口
     """
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, agent_pk='', *args, **kwargs):
         """
-        查询出所有已经注册的 Agent 信息，并返回
-
+        根据 agent_pk 查询出对应的 agent 信息并返回，如果 agent_pk = '' 就返回所有的 agent 对象。
 
         Parameters
         ----------
         request : WSGIRequest
             请求对象
+
+        agent_pk: str
+            接口传进来的 agent 的主键，由于项目使用的 re 来匹配参数，所以在接口没有传入参数时会得到空值
 
         args: tuple
             位置参数、默认 ()
@@ -42,19 +45,37 @@ class AgentsView(View):
             返回所有 agent 的列表
         """
         logger.info(
-            f"path = {request.path} method= {request.method} args = {args}  kwargs = {kwargs} .")
+            f"path = {request.path} method= {request.method} agent-pk = '{agent_pk}' args = {args}  kwargs = {kwargs} .")
         result = []
         message = ''
-        try:
-            result = [_ for _ in Agent.objects.values()]
-        except Exception as err:
-            message = f"query all agents got fail, inner error = {str(err)}"
-            logger.error(message)
 
-        return JsonResponse({
+        # 处理有传入主键的情况
+        if agent_pk != '':
+            logger.info(f"query one agent by pk = {agent_pk}.")
+            pk = int(agent_pk)
+
+            try:
+                agent = Agent.objects.get(pk=pk)
+                return JsonResponse(model_to_dict(agent))
+            except Agent.DoesNotExist as err:
+                # Agent matching query does not exist.
+                logger.warning(str(err))
+                return JsonResponse({
+                    'message': str(err)
+                })
+
+        # 处理查询所有的情况
+        try:
+            logger.info(f"query all agents .")
+            result = [_ for _ in Agent.objects.values()]
+            return JsonResponse({
                 'agents': result,
                 'message': message
             })
+
+        except Exception as err:
+            message = f"query all agents got fail, inner error = {str(err)}"
+            logger.error(message)
 
     def post(self, request, *args, **kwargs):
         """
@@ -99,7 +120,8 @@ class AgentsView(View):
 
         # 写回到数据库
         try:
-            agent = Agent.objects.create(host=host, port=port, version=version, register_at=now, heartbeat_at=now)
+            agent = Agent.objects.create(
+                host=host, port=port, version=version, register_at=now, heartbeat_at=now)
         except IntegrityError as err:
             # 由于  host 要保证唯一，当提交上来的 host 已经存在的时候就会引发完整性约束异常
             logger.warning(f"looks like host = {host} , has been exists.")
@@ -111,9 +133,9 @@ class AgentsView(View):
             return JsonResponse({
                 'message': str(err)
             })
-        
+
         # 返回 agent 的 id 值到 client
         return JsonResponse({
-                'id': agent.pk,
-                'message': '',
-            })
+            'id': agent.pk,
+            'message': '',
+        })

@@ -1,5 +1,8 @@
 from django.test import TestCase, Client
+from django.utils import timezone
 
+
+from .models import Agent
 # Create your tests here.
 
 
@@ -33,3 +36,29 @@ class AgentsViewTestCase(TestCase):
 
         self.assertIn('message', data)
 
+class AgentModelTestCase(TestCase):
+    """
+    针对 Agent 这个 model 的测试
+    """
+
+    def test_given_agent_heartbeat_at_when_check_agent_is_alive_then_return_false(self):
+        """
+        given: agent 心跳上报超时(数据库里面保存的值与，当前时间之前差大于 11s )
+        when: 检查 agent 是不是活着的
+        then: Flase
+        """
+        now = timezone.now()
+        now = now - timezone.timedelta(seconds=12)
+        agent = Agent(heartbeat_at=now)
+        self.assertFalse(agent.is_alive)
+
+    def test_given_agent_heartheat_at_not_timeout_when_check_agent_is_alive_then_return_true(self):
+        """
+        given: agent 的心路上报时间为 10 秒以前
+        when: 检查 agent 是不是活着的
+        then: Flase
+        """
+        now = timezone.now()
+        now = now - timezone.timedelta(seconds=10)
+        agent = Agent(heartbeat_at=now)
+        self.assertTrue(agent.is_alive)

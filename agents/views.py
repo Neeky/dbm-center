@@ -139,3 +139,42 @@ class AgentsView(View):
             'id': agent.pk,
             'message': '',
         })
+
+    def put(self, request, agent_pk, *args, **kwargs): 
+        """
+        更新 agent 的心跳信息
+
+        Parameter
+        ---------
+        agent_pk: int
+            agent 的主键
+
+        Return:
+        ------
+        {
+            'pk': agent.pk,
+            'message':''
+        }
+        """
+        logger.info(f"{request} {agent_pk} {args} {kwargs}")
+
+        if agent_pk != '':
+            pk = int(agent_pk)
+        else:
+            return JsonResponse({
+                'message': 'agent-pk should be int .'
+            })
+
+        # 更新 heartbeat
+        try:
+            agent = Agent.objects.get(pk=pk)
+            agent.update_heartbeat()
+        except Agent.DoesNotExist as err:
+            return JsonResponse({
+                'message': str(err)
+            })
+        # 
+        return JsonResponse({
+            'pk': agent.pk,
+            'message': ''
+            })

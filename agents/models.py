@@ -29,13 +29,6 @@ class Agent(models.Model):
     # 最近一次上报心跳的时间点
     heartbeat_at = models.DateTimeField(default=timezone.now)
 
-    def update_heartbeat(self):
-        """
-        更新 agent 的心跳信息
-        """
-        self.heartbeat_at = timezone.now()
-        self.save()
-
     @property
     def is_alive(self):
         """
@@ -55,3 +48,10 @@ class Agent(models.Model):
         dbm-center 能否连接到 dbm-agent,
         """
         return False
+
+    def update_heartbeat(self):
+        """
+        更新 agent 的心跳信息
+        """
+        self.heartbeat_at = timezone.now()
+        self.save()

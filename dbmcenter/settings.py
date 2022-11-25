@@ -150,3 +150,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# backend thread pool size
+BACKEND_THREAD_POOL_SIZE = 5

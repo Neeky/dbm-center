@@ -16,13 +16,18 @@ Including another URLconf
 from django.urls import include, path
 from django.http import HttpResponseRedirect
 
+from dbmcenter.core.tasks.master import init_master
+
 def index(request, *args, **kwargs):
     """
     重定向到 VUE 前端
     """
     return HttpResponseRedirect('dbm-center/index.html')
 
+
 urlpatterns = [
     path('', index, name='index'),
     path('apis/agents/', include('agents.urls'), name='apis-agents')
 ]
+
+init_master()

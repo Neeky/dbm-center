@@ -1,3 +1,12 @@
+# -*- coding: utf8 -*-
+"""
+基于 concurrent.futures.thread.ThreadPoolExecutor 实现一个异步任务框架，对于长时间的任务直接交结异步构架执行，以便尽快的返回 JsonResponse 。
+
+这里的实现参考了 JavaScript 的并发模型 "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop"
+
+"""
+
+
 import logging
 from uuid import uuid4
 from concurrent.futures.thread import ThreadPoolExecutor
@@ -6,7 +15,7 @@ from dbmcenter.settings import BACKEND_THREAD_POOL_SIZE
 
 threads = None
 
-logger = logging.getLogger('dbmcenter.core.base')
+logger = logging.getLogger('dbmcenter.core.task')
 
 
 class DbmBaseTask(object):

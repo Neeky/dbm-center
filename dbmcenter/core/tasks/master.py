@@ -1,12 +1,14 @@
-"""
-对于 dbm-center 来说一个 http 请求对应的操作可能会非常的长，比如安装一套高可用的 MySQL 集群；如果等这一切都执行完成之后再返回 JsonResponse 的话，浏览器就会超时。
+# -*- coding: utf8 -*-
 
-为了尽可能快的返回给客户端，dbm-center 在做完成必要的检查，并且把任务的信息保存到后端 MySQL 后就返回给客户端。
+"""
+dbm-center 可能会被运行在多台机器的多个进程上，虽然大家都可以处理 http 请求，但是对于关键状态应该只有一个进程可以读写。
+
 """
 
 import time
 import random
 import logging
+
 
 from dbmcenter.core.tasks.base import DbmBaseTask, threads, init_task_framework, submit_backend_task
 
@@ -14,7 +16,7 @@ from dbmcenter.core.tasks.base import DbmBaseTask, threads, init_task_framework,
 logger = logging.getLogger('dbmcenter.core.tasks')
 
 
-class DbmCenterMasterTask(DbmBaseTask):
+class RegisterMasterTask(DbmBaseTask):
     """
     注册 dbm-master 结点信息
     """
@@ -46,4 +48,4 @@ def init_master():
     if threads is None:
         # 激活异步任务框架
         init_task_framework()
-        submit_backend_task(DbmCenterMasterTask())
+        submit_backend_task(RegisterMasterTask())

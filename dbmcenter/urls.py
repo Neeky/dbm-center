@@ -17,6 +17,7 @@ from django.urls import include, path
 from django.http import HttpResponseRedirect
 
 from dbmcenter.core.tasks.master import init_master
+from dbmcenter.views.configs import DBMCenterConfigView
 
 def index(request, *args, **kwargs):
     """
@@ -27,7 +28,8 @@ def index(request, *args, **kwargs):
 
 urlpatterns = [
     path('', index, name='index'),
-    path('apis/agents/', include('agents.urls'), name='apis-agents')
+    path('apis/agents/', include('agents.urls'), name='apis-agents'),
+    path('apis/configs/', DBMCenterConfigView.as_view(), name='dbmcenter-configs')
 ]
 
 init_master()

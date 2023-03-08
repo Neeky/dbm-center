@@ -1,5 +1,3 @@
-import os
-import re
 from setuptools import setup
 
 
@@ -11,9 +9,9 @@ setup(name='dbm-center',
       maintainer='Neeky',
       maintainer_email='neeky@live.com',
       scripts=['bin/dbm-center'],
-      packages=['dbmcenter'],
+      packages=['dbmcenter','agents', 'dbmcenter/core', 'dbmcenter/core/tasks'],
       package_data={'dbmcenter': ['dbm-center/*', 'dbm-center/css/*', 'dbm-center/js/*']},
-      install_requires=['Django==4.1.2'],
+      install_requires=['Django>=4.1.2'],
       url='https://github.com/Neeky/dbm-center',
       python_requires='>=3.6.*',
       classifiers=[

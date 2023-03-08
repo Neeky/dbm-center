@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name='dbm-center',
-      version='0.2.1',
+      version='0.2.2',
       description='dbm-center 数据库管理中心服务端程序',
       author="Neeky",
       author_email="neeky@live.com",

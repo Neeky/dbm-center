@@ -2,14 +2,14 @@ from setuptools import setup
 
 
 setup(name='dbm-center',
-      version='0.2.2',
+      version='0.2.3',
       description='dbm-center 数据库管理中心服务端程序',
       author="Neeky",
       author_email="neeky@live.com",
       maintainer='Neeky',
       maintainer_email='neeky@live.com',
       scripts=['bin/dbm-center'],
-      packages=['dbmcenter','agents', 'dbmcenter/core', 'dbmcenter/core/tasks'],
+      packages=['dbmcenter', 'agents', 'dbmcenter/core', 'dbmcenter/core/tasks', 'dbmcenter/views'],
       package_data={'dbmcenter': ['dbm-center/*', 'dbm-center/css/*', 'dbm-center/js/*']},
       install_requires=['Django>=4.1.2'],
       url='https://github.com/Neeky/dbm-center',

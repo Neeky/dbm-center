@@ -9,7 +9,7 @@ import time
 import random
 import logging
 
-
+from dbmcenter.settings import IS_MASTER_ROLE_ENABLED
 from dbmcenter.core.tasks.base import DbmBaseTask, threads, init_task_framework, submit_backend_task
 
 
@@ -44,6 +44,10 @@ def init_master():
     """
     初始化 master 角色
     """
+    # 如果不启动 MASTER 状态就直接退出
+    if not IS_MASTER_ROLE_ENABLED:
+        return
+    
     global threads
     if threads is None:
         # 激活异步任务框架

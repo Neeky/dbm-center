@@ -152,3 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # backend thread pool size
 BACKEND_THREAD_POOL_SIZE = 5
+
+# 是否以 MASTER 角色启动
+IS_MASTER_ROLE_ENABLED = False

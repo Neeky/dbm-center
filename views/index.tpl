@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" href="./favicon.ico">
     <title>dbm-center</title>
-    <link href="./css/app.940106bb.css" rel="preload" as="style">
-    <link href="./js/app.4bb2602a.js" rel="preload" as="script">
-    <link href="./js/chunk-vendors.ae02e612.js" rel="preload" as="script">
-    <link href="./css/app.940106bb.css" rel="stylesheet">
+    <link href="static/css/app.940106bb.css" rel="preload" as="style">
+    <link href="static/js/app.4bb2602a.js" rel="preload" as="script">
+    <link href="static/js/chunk-vendors.ae02e612.js" rel="preload" as="script">
+    <link href="static/css/app.940106bb.css" rel="stylesheet">
 </head>
 
 <body><noscript><strong>We're sorry but hellovue doesn't work properly without JavaScript enabled. Please enable it to
             continue.</strong></noscript>
     <div id="app"></div>
-    <script src="./js/chunk-vendors.ae02e612.js"></script>
-    <script src="./js/app.4bb2602a.js"></script>
+    <script src="static/js/chunk-vendors.ae02e612.js"></script>
+    <script src="static/js/app.4bb2602a.js"></script>
 </body>
 
 </html>
